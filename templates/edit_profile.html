@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-0 shadow-sm rounded-3">
+                <div class="card-header bg-white border-0 pt-4">
+                    <h2 class="text-center mb-0 fw-bold" style="color: #000;">Edit Your Profile</h2>
+                </div>
+                <div class="card-body px-5 pb-5 pt-4">
+                    <form method="POST" class="needs-validation" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Username Field -->
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Username</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-person-fill"></i>
+                                </span>
+                                <input type="text"
+                                       name="username"
+                                       id="id_username"
+                                       class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+                                       value="{{ form.username.value|default:'' }}"
+                                       required>
+                                {% if form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </span>
+                                <input type="email"
+                                       name="email"
+                                       id="id_email"
+                                       class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                                       value="{{ form.email.value|default:'' }}"
+                                       required>
+                                {% if form.email.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Phone Number Field -->
+                        <div class="mb-3">
+                            <label for="id_phone_number" class="form-label">Phone Number</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </span>
+                                <input type="tel"
+                                       name="phone_number"
+                                       id="id_phone_number"
+                                       class="form-control {% if form.phone_number.errors %}is-invalid{% endif %}"
+                                       value="{{ form.phone_number.value|default:'' }}">
+                                {% if form.phone_number.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.phone_number.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Address Field -->
+                        <div class="mb-4">
+                            <label for="id_address" class="form-label">Address</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    <i class="bi bi-house-door-fill"></i>
+                                </span>
+                                <textarea name="address"
+                                          id="id_address"
+                                          class="form-control {% if form.address.errors %}is-invalid{% endif %}"
+                                          rows="3">{{ form.address.value|default:'' }}</textarea>
+                                {% if form.address.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.address.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Password Change Section -->
+                        <div class="mb-4 border-top pt-3">
+                            <h5 class="mb-3">Password Change (Optional)</h5>
+
+                            <div class="mb-3">
+                                <label for="id_old_password" class="form-label">Current Password</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+                                    <input type="password"
+                                           name="old_password"
+                                           id="id_old_password"
+                                           class="form-control"
+                                           placeholder="Leave blank to keep current password">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="id_new_password1" class="form-label">New Password</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+                                    <input type="password"
+                                           name="new_password1"
+                                           id="id_new_password1"
+                                           class="form-control"
+                                           placeholder="Enter new password">
+                                </div>
+                                <div class="password-requirements mt-2">
+                                    <small class="text-muted d-block">Password requirements:</small>
+                                    <ul class="small text-muted ps-3 mb-0">
+                                        <li>Minimum 8 characters</li>
+                                        <li>Not entirely numeric</li>
+                                        <li>Not too common</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="id_new_password2" class="form-label">Confirm New Password</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+                                    <input type="password"
+                                           name="new_password2"
+                                           id="id_new_password2"
+                                           class="form-control"
+                                           placeholder="Confirm new password">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mb-3">
+                            <button type="submit" class="btn btn-dark btn-lg py-2 fw-semibold">
+                                Save Changes
+                            </button>
+                            <a href="{% url 'rentals:profile' %}" class="btn btn-outline-secondary btn-lg py-2">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        max-width: 600px;
+        margin: 0 auto;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    .card-header {
+        background: white !important;
+        border-bottom: none !important;
+    }
+    .form-control {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    .form-control:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    .input-group-text {
+        background-color: #f8f9fa;
+        color: #6c757d;
+        border: 1px solid #ced4da;
+    }
+    .btn-dark {
+        letter-spacing: 0.5px;
+        transition: all 0.2s ease;
+    }
+    .btn-dark:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .password-requirements {
+        font-size: 0.85rem;
+    }
+    .is-invalid {
+        border-color: #dc3545;
+    }
+    .invalid-feedback {
+        display: block;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 0.875em;
+        color: #dc3545;
+    }
+</style>
+
+<script>
+    // Form validation
+    (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+{% endblock %}

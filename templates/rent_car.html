@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-10">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">Rent {{ car.year }} {{ car.make }} {{ car.model }}</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Car Image & Details Column -->
+                    <div class="col-md-5 border-end">
+                        {% if car.image %}
+                        <div class="mb-4">
+                            <img src="{{ car.image.url }}" class="img-fluid rounded" alt="{{ car.make }} {{ car.model }}">
+                        </div>
+                        {% endif %}
+
+                        <div class="car-details">
+                            <h5 class="text-muted mb-3">Vehicle Details</h5>
+                            <div class="d-flex justify-content-between py-2 border-bottom">
+                                <span class="text-muted">Daily Rate</span>
+                                <span class="fw-bold">${{ car.daily_rate }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between py-2 border-bottom">
+                                <span class="text-muted">Transmission</span>
+                                <span>{{ car.get_transmission_display }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between py-2 border-bottom">
+                                <span class="text-muted">Seats</span>
+                                <span>{{ car.seats }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between py-2">
+                                <span class="text-muted">Color</span>
+                                <span>{{ car.color }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rental Form Column -->
+                    <div class="col-md-7 ps-md-4">
+                        <h5 class="text-muted mb-3">Rental Information</h5>
+                        <form method="POST" class="needs-validation" novalidate>
+                            {% csrf_token %}
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="id_start_date" class="form-label fw-medium">Start Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                        <input type="date" class="form-control" id="id_start_date" name="start_date" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="id_end_date" class="form-label fw-medium">End Date</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                        <input type="date" class="form-control" id="id_end_date" name="end_date" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="id_pickup_location" class="form-label fw-medium">Pickup Location</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                        <input type="text" class="form-control" id="id_pickup_location"
+                                               name="pickup_location" value="Main Office (123 Rental St, City)" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="id_dropoff_location" class="form-label fw-medium">Dropoff Location</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                        <input type="text" class="form-control" id="id_dropoff_location"
+                                               name="dropoff_location" value="Main Office (123 Rental St, City)" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info mt-4 d-flex justify-content-between align-items-center">
+                                <strong class="me-3">Estimated Total:</strong>
+                                <span class="fs-4 fw-bold">$<span id="totalCost">0.00</span></span>
+                            </div>
+
+                            <button type="submit" class="btn btn-dark btn-lg w-100 mt-3 py-2">
+                                <i class="bi bi-check-circle-fill me-2"></i>Confirm Rental
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const startDateInput = document.querySelector('#id_start_date');
+        const endDateInput = document.querySelector('#id_end_date');
+        const dailyRate = {{ car.daily_rate }};
+        const totalCostElement = document.getElementById('totalCost');
+
+        function calculateTotal() {
+            if (startDateInput.value && endDateInput.value) {
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+                const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) || 0;
+                const total = days * dailyRate;
+                totalCostElement.textContent = total.toFixed(2);
+            } else {
+                totalCostElement.textContent = '0.00';
+            }
+        }
+
+        startDateInput.addEventListener('change', calculateTotal);
+        endDateInput.addEventListener('change', calculateTotal);
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        startDateInput.min = today;
+        endDateInput.min = today;
+
+        // When start date changes, update end date min
+        startDateInput.addEventListener('change', function() {
+            endDateInput.min = this.value;
+            calculateTotal();
+        });
+
+        // Initial calculation if dates are pre-filled
+        calculateTotal();
+    });
+</script>
+
+<style>
+    .car-details {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.25rem;
+    }
+
+    .form-control, .form-select {
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        border: 1px solid #ced4da;
+    }
+
+    .card {
+        border-radius: 12px;
+        border: none;
+    }
+
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-right: none;
+    }
+
+    .input-group .form-control {
+        border-left: none;
+    }
+
+    .input-group .form-control:focus {
+        box-shadow: none;
+        border-color: #ced4da;
+    }
+
+    /* Style for location fields */
+    #id_pickup_location, #id_dropoff_location {
+        font-style: italic;
+        color: #6c757d;
+    }
+
+    #id_pickup_location:focus, #id_dropoff_location:focus {
+        font-style: normal;
+        color: #212529;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Manage Orders</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Car</th>
+                    <th>Customer</th>
+                    <th>Dates</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.car }}</td>
+                    <td>{{ order.user.username }}</td>
+                    <td>{{ order.start_date }} to {{ order.end_date }}</td>
+                    <td>${{ order.total_cost }}</td>
+                    <td>
+                        <span class="badge
+                            {% if order.status == 'approved' %}bg-success
+                            {% elif order.status == 'pending' %}bg-warning text-dark
+                            {% elif order.status == 'rejected' %}bg-danger
+                            {% else %}bg-info{% endif %}">
+                            {{ order.status|title }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            {% if order.status == 'pending' %}
+                            <a href="#" class="btn btn-sm btn-success">Approve</a>
+                            <a href="#" class="btn btn-sm btn-danger">Reject</a>
+                            {% endif %}
+                            <a href="#" class="btn btn-sm btn-info">View</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

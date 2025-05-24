@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4 fw-bold mb-4">YOUR DREAM CAR AWAITS</h1>
+                <p class="lead mb-4">Experience the ultimate driving pleasure with our premium collection</p>
+                <a href="{% url 'cars' %}" class="btn btn-dark btn-lg">
+                    BROWSE CARS <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+            <div class="col-md-6 pe-0 me-0">  <!-- Dodane pe-0 (padding-right: 0) -->
+                {% static 'images/car-hero.jpg' as car_image_path %}
+                {% if car_image_path %}
+                    <img src="{{ car_image_path }}" alt="Luxury Car" class="img-fluid" style="max-height: 300px; width: auto; object-fit: contain; margin-left: auto; display: block;">
+                {% else %}
+                    <div class="placeholder-image bg-light d-flex align-items-center justify-content-center border" style="height: 200px; width: 70%; margin-left: auto;">
+                        <span class="text-muted">Hero Image</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hero-section {
+        padding: 80px 0;
+        background-color: white;  <!-- Gwarancja białego tła -->
+    }
+
+    /* Dla responsywności na mniejszych ekranach */
+    @media (max-width: 768px) {
+        .col-md-6.pe-0 {
+            padding-right: 15px !important;
+        }
+        .hero-section img {
+            max-height: 300px !important;
+            margin: 20px auto !important;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <!-- Pierwsza usługa -->
+        <div class="col-md-4 feature-box p-4 mb-4 mb-md-0">
+            <div class="border p-4 h-100" style="border-radius: 12px; border: 1px solid #e0e0e0 !important;">
+                <h3 class="mb-3">HIGH PERFORMANCE</h3>
+                <p class="mb-0">Experience the thrill of driving the fastest sports cars on the market.</p>
+            </div>
+        </div>
+
+        <!-- Druga usługa -->
+        <div class="col-md-4 feature-box p-4 mb-4 mb-md-0">
+            <div class="border p-4 h-100" style="border-radius: 12px; border: 1px solid #e0e0e0 !important;">
+                <h3 class="mb-3">FULLY INSURED</h3>
+                <p class="mb-0">All our rentals come with comprehensive insurance coverage.</p>
+            </div>
+        </div>
+
+        <!-- Trzecia usługa -->
+        <div class="col-md-4 feature-box p-4">
+            <div class="border p-4 h-100" style="border-radius: 12px; border: 1px solid #e0e0e0 !important;">
+                <h3 class="mb-3">24/7 SUPPORT</h3>
+                <p class="mb-0">Our team is always available to assist you with any questions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .feature-box {
+        transition: all 0.3s ease;
+    }
+    .feature-box:hover {
+        transform: translateY(-5px);
+    }
+    .feature-box .border {
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .feature-box:hover .border {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        border-color: #d0d0d0 !important;
+    }
+</style>
+
+<div class="bg-black text-white py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">READY FOR THE RIDE OF YOUR LIFE?</h2>
+        <a href="{% url 'cars' %}" class="btn btn-outline-light btn-lg">
+            EXPLORE OUR FLEET <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}
