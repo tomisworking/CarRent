@@ -20,7 +20,7 @@ A simple web application for renting exotic cars. This platform allows users to 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
+   git clone https://github.com/tomisworking/CarRent.git
    cd your-repo-name
 
 2. **Create a virtual environment::**
@@ -57,6 +57,15 @@ A simple web application for renting exotic cars. This platform allows users to 
 - Admin site: http://127.0.0.1:8000/admin
 
 ---
+
+# Project Demo
+**Homepage**
+
+**Cars Listing**
+
+**Register Page**
+
+**Profile page**
    
 
 
