@@ -37,17 +37,13 @@ A simple web application for renting exotic cars. This platform allows users to 
 4. **Run migartions::**
 
    ```bash
-  python manage.py migrate
+   python manage.py migrate
 
 5. **Create a superuser (admin):**
 
    ```bash
    python manage.py createsuperuser
 
-5. **Create a superuser (admin)::**
-
-   ```bash
-   python manage.py runserver
 
 6. **Start the development server::**
 
@@ -57,9 +53,10 @@ A simple web application for renting exotic cars. This platform allows users to 
 
 7. **Start the development server::**
 
-User site: http://127.0.0.1:8000/
+-User site: http://127.0.0.1:8000/
+-Admin site: http://127.0.0.1:8000/admin
 
-Admin site: http://127.0.0.1:8000/admin
+---
    
 
 
