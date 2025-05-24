@@ -1,10 +1,10 @@
-# 🚗 Exotic Car Rental
+# Exotic Car Rental
 
 A simple web application for renting exotic cars. This platform allows users to register, browse available cars, and make rental bookings. Admins can manage users and cars from a secure dashboard.
 
 ---
 
-## ⚙️ Tech Stack Used
+## Tech Stack Used
 
 - **HTML**
 - **CSS**
@@ -15,44 +15,52 @@ A simple web application for renting exotic cars. This platform allows users to 
 
 ---
 
-## 🛠️ How to Set Up on Local Machine
+## How to Set Up on Local Machine
 
 1. **Clone the repository:**
 
    ```bash
    git clone https://github.com/yourusername/your-repo-name.git
    cd your-repo-name
-Create a virtual environment:
+
+2. **Create a virtual environment::**
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows: venv\Scripts\activate
+
+3. **Install dependencies::**
+
+   ```bash
+   pip install -r requirements.txt
+
+4. **Run migartions::**
+
+   ```bash
+  python manage.py migrate
+
+5. **Create a superuser (admin):**
+
+   ```bash
+   python manage.py createsuperuser
+
+5. **Create a superuser (admin)::**
+
+   ```bash
+   python manage.py runserver
+
+6. **Start the development server::**
+
+   ```bash
+   python manage.py createsuperuser
 
 
-python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
-Install dependencies:
-
-bash
-Kopiuj
-Edytuj
-pip install -r requirements.txt
-Run migrations:
-
-bash
-Kopiuj
-Edytuj
-python manage.py migrate
-Create a superuser (admin):
-
-bash
-Kopiuj
-Edytuj
-python manage.py createsuperuser
-Start the development server:
-
-bash
-Kopiuj
-Edytuj
-python manage.py runserver
-Access the application:
+7. **Start the development server::**
 
 User site: http://127.0.0.1:8000/
 
 Admin site: http://127.0.0.1:8000/admin
+   
+
+
+
