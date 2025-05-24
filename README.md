@@ -60,11 +60,17 @@ A simple web application for renting exotic cars. This platform allows users to 
 ## Homepage  
 ![Homepage](<media/screenshots/screenshot (2).png>)
 
+---
+
 ## Cars Listing  
 ![Cars](<media/screenshots/screenshot (3).png>)
 
+---
+
 ##  Register Page  
 ![Cars](<media/screenshots/screenshot (4).png>)
+
+---
 
 ## Profile page
 ![Profile](<media/screenshots/screenshot (1).png>)
