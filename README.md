@@ -53,8 +53,8 @@ A simple web application for renting exotic cars. This platform allows users to 
 
 7. **Start the development server::**
 
--User site: http://127.0.0.1:8000/
--Admin site: http://127.0.0.1:8000/admin
+- User site: http://127.0.0.1:8000/
+- Admin site: http://127.0.0.1:8000/admin
 
 ---
    
