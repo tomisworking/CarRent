@@ -44,12 +44,10 @@ A simple web application for renting exotic cars. This platform allows users to 
    ```bash
    python manage.py createsuperuser
 
-
 6. **Start the development server::**
 
    ```bash
-   python manage.py createsuperuser
-
+   python manage.py runserver
 
 7. **Start the development server::**
 
